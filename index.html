@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Para Isadora 💌</title>
+<meta name="description" content="Uma carta escrita só pra você.">
+<meta property="og:title" content="Uma carta para Isadora 💌">
+<meta property="og:description" content="Toque para abrir ✨">
+<meta property="og:type" content="website">
+<meta name="theme-color" content="#110c22">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💌</text></svg>">
+
+<!--
+  =====================================================================
+   ✏️  1) CONFIGURAÇÕES  (opcional — dá pra deixar como está)
+  =====================================================================
+-->
+<script>
+  window.CARTA = {
+    para: "Isadora",
+
+    // Seu nome, pra aparecer como assinatura no fim (ex: "Pedro").
+    // Se deixar vazio, aparece um coraçãozinho desenhado no lugar.
+    de: "",
+
+    despedida: "Com todo o meu carinho,",
+
+    // Data que aparece no topo da carta. Deixe "" pra esconder.
+    data: "9 de novembro de 2026",
+
+    // Frases que aparecem uma por uma antes do envelope (pode mudar, tirar ou pôr mais).
+    // Deixe [] pra ir direto pro envelope.
+    introducao: [
+      "Oi, Isadora…",
+      "Sua carta está aí.",
+      "Cupom textão valeu✨"
+    ],
+
+    // Mensagem que aparece quando ela toca no coração lá no final.
+    final: "Que bom que você existe. ✨",
+
+    // true  = corações nas animações
+    // false = estrelinhas e brilhos (mais neutro)
+    romantico: true,
+
+    // "auto"       = caixinha de música feita pelo próprio site
+    // "musica.mp3" = toca um arquivo seu (coloque o .mp3 nesta mesma pasta)
+    // ""           = sem música
+    musica: "auto",
+
+    // "elegante" ou "manuscrita" (letra de mão)
+    letra: "elegante"
+  };
+</script>
+
+<!--
+  =====================================================================
+   💌  2) COLE A CARTA AQUI EMBAIXO
+
+   Apague o texto de exemplo e cole o seu no lugar, entre a linha
+   <script type="text/plain" ...> e a linha </script>.
+
+   Pode colar direto do WhatsApp, do jeito que estiver: emojis,
+   parágrafos, *negrito*, _itálico_ e ~riscado~ funcionam sozinhos.
+  =====================================================================
+-->
+<script type="text/plain" id="texto-da-carta">
+Isadora,
+
+Então, eu só te amo. E também não sei o porquê.
+
+Porque quando você ama alguém, você nunca ama por causa de uma coisa específica. Amar é, na verdade, não saber por que se ama. Esse é o lado cômico da coisa.
+
+Então, quando meus amigos me perguntam "o que você vê nela afinal, Pedrão?", eu me enrolo, tento responder, mas não consigo kkk
+
+Sim, você tem um cabelo lindo e um sorriso que qualquer um ia querer ver, mas eu te amaria mesmo se não tivesse. Sim, eu amo seu sorriso, seu senso de humor, seu corpo, sua voz e tudo mais, mas eu continuaria te amando sem isso.
+
+A pergunta "você me amaria se eu fosse uma minhoca?" é engraçada kkk, mas ela mostra uma coisa interessante: não existe nada em você que eu não ame, entende? Porque amar nunca é parcial ou pela metade. E quem eu amo é você, por tudo o que você é, vai ser ou deixou de ser.
+
+Sabe, existem 8 bilhões de pessoas no mundo. No meio de tanta gente, é fácil a vida de alguém passar despercebida. Acho que é por isso que a gente procura alguém pra ficar do lado: pra ter uma testemunha da nossa vida. Alguém que repare em tudo. Nas coisas boas, nas ruins, nas idiotas. Todos os dias.
+
+E se um dia a vida deixar, eu queria ser essa pessoa pra você. Alguém que nota quando você tá feliz, quando tá cansada, quando fala "tô bem" sem estar. Pra sua vida nunca passar sem ninguém ver, porque eu vou estar vendo.
+
+Eu não tenho sonho nenhum de ser reconhecido pelos outros. Meu único sonho é que, lá na frente, se alguém te perguntar "e o Pedro? Ele era tudo aquilo mesmo?", você sorria e responda "era sim. Ele foi a melhor pessoa que eu conheci."
+
+Até lá, eu vou continuar tentando merecer essa resposta kkkk.
+
+
+Desce um pouco mais pra baixo aí kkkk ✨
+</script>
+<!-- ===================== fim da carta — daqui pra baixo não precisa mexer ===================== -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500&family=Great+Vibes&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+
+<body class="fase-intro">
+  <div class="fundo" aria-hidden="true"></div>
+  <div class="aurora" aria-hidden="true"><span></span><span></span><span></span></div>
+  <div class="lua" aria-hidden="true"></div>
+  <canvas id="ceu" aria-hidden="true"></canvas>
+
+  <!-- ============ ABERTURA ============ -->
+  <section class="intro" id="intro" aria-label="Abertura">
+    <p class="frase" id="frase" aria-live="polite"></p>
+
+    <div class="cena" id="cena">
+      <h1 class="titulo-intro">
+        <span class="para">uma carta para</span>
+        <span class="nome escrita" data-nome></span>
+      </h1>
+
+      <div class="envelope-wrap">
+        <div class="tilt" id="tilt">
+          <div class="envelope" id="envelope">
+            <div class="env-fundo"></div>
+            <div class="env-papel">
+              <span class="env-papel-nome" data-nome></span>
+              <span class="env-papel-linhas"></span>
+            </div>
+            <div class="env-frente">
+              <i class="esq"></i><i class="dir"></i><i class="baixo"></i>
+              <svg class="dobras" viewBox="0 0 300 200" preserveAspectRatio="none" aria-hidden="true">
+                <path d="M0 0 156 108M300 0 144 108M0 200 150 90 300 200"/>
+              </svg>
+            </div>
+            <div class="env-aba"></div>
+            <button class="selo" id="selo" type="button" aria-label="Abrir a carta">
+              <span class="selo-metade esq"><span class="selo-cera"><b data-inicial></b></span></span>
+              <span class="selo-metade dir"><span class="selo-cera"><b data-inicial></b></span></span>
+            </button>
+          </div>
+        </div>
+        <div class="sombra"></div>
+      </div>
+
+      <p class="dica">toque no selo para abrir</p>
+    </div>
+
+    <button class="pular" id="pular" type="button" hidden>pular ›</button>
+  </section>
+
+  <!-- ============ CARTA ============ -->
+  <main class="carta" id="carta" hidden>
+    <div class="papel-wrap">
+      <div class="folha folha-2" aria-hidden="true"></div>
+      <div class="folha folha-1" aria-hidden="true"></div>
+      <article class="papel">
+        <span class="fita" aria-hidden="true"></span>
+
+        <header class="cabecalho">
+          <div class="ornamento" data-ornamento></div>
+          <p class="sobrescrito">uma carta para</p>
+          <h1 class="destinataria escrita" data-nome></h1>
+          <p class="data" id="data"></p>
+        </header>
+
+        <div class="conteudo" id="conteudo"></div>
+
+        <footer class="assinatura" id="assinatura">
+          <p class="despedida" id="despedida"></p>
+          <p class="nome-ass" id="nomeAss"></p>
+        </footer>
+
+        <div class="ornamento ornamento-base" data-ornamento></div>
+      </article>
+    </div>
+
+    <section class="final" id="final" aria-label="Final">
+      <button class="coracao-final" id="coracaoFinal" type="button" aria-label="Toque aqui">
+        <svg viewBox="0 0 100 92" aria-hidden="true"></svg>
+      </button>
+      <p class="toque-dica">toque no coração</p>
+      <p class="msg-final" id="msgFinal"></p>
+      <div class="acoes">
+        <button type="button" class="btn" id="btnTopo">↑ ler de novo</button>
+        <button type="button" class="btn" id="btnReabrir">✉ ver a abertura de novo</button>
+      </div>
+      <p class="rodape">feito com ♥ só pra você</p>
+    </section>
+  </main>
+
+  <canvas id="fx" aria-hidden="true"></canvas>
+
+  <div class="progresso" aria-hidden="true"><span id="barra"></span></div>
+
+  <div class="rolar" id="rolar" aria-hidden="true">
+    role para ler
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>
+  </div>
+
+  <button class="btn-musica" id="btnMusica" type="button" aria-label="Tocar música" hidden>
+    <span class="barras" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+  </button>
+
+  <noscript><p>Essa carta precisa do JavaScript ligado pra abrir 💌</p></noscript>
+
+  <script src="script.js"></script>
+</body>
+</html>
